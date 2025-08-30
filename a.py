@@ -179,8 +179,7 @@ def convert_tumor_to_obj(input_path, output_obj_path, is_dicom=False, onnx_model
     x = np.stack([v128, v128, v128, v128], axis=0)[None, ...]
 
     # 4) Inferencia ONNX
-    providers = ["CUDAExecutionProvider", "CPUExecutionProvider"]
-    sess = ort.InferenceSession(onnx_model_path, providers=providers)
+    sess = ort.InferenceSession(onnx_model_path, providers=["CPUExecutionProvider"])
     inp_name = sess.get_inputs()[0].name
     y = sess.run(None, {inp_name: x})[0]
 
@@ -237,3 +236,4 @@ if __name__ == "__main__":
     else:
         onnx_path = os.getenv("TUMOR_ONNX_PATH", "unet3d.onnx")
         convert_tumor_to_obj(input_path, output_obj, is_dicom, onnx_model_path=onnx_path)
+
