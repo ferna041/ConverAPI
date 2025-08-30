@@ -6,3 +6,4 @@ pydicom
 scikit-image
 trimesh
 python-multipart
+onnxruntime
